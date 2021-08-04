@@ -10,10 +10,10 @@ function Post() {
   return (
     <div>
       <Switch>
-        <Route exact path={`${match.url}/detail/:postId`} component={PostDetail}></Route>
         <Route exact path={`${match.url}`} component={PostList}></Route>
-        <Route exact path={`${match.url}/create`} component={PostForm}></Route>
-        <Route exact path={`${match.url}/update/:postId`} component={PostForm}></Route>
+        <Route path={`${match.url}/detail/:postId`} component={PostDetail}></Route>
+        <Route path={`${match.url}/create`} component={PostForm}></Route>
+        <Route path={`${match.url}/update/:postId`} component={PostForm}></Route>
       </Switch>
     </div>
   );

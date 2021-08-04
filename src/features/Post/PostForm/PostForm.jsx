@@ -11,7 +11,8 @@ function PostForm() {
   const { postId } = useParams();
   const postList = useSelector((state) => state.posts);
   const isCreateMode = !postId;
-  const postItem = postList.find((post) => post.id === +postId);
+  const postItem = postList.find((post) => post.id === Number(postId));
+
   const defaultValues = isCreateMode
     ? {
         title: '',
@@ -39,19 +40,7 @@ function PostForm() {
 
   const dispatch = useDispatch();
   const onSubmit = (data) => {
-    if (!isCreateMode) {
-      const postUpdated = {
-        id: postId,
-        title: data.title,
-        body: data.body,
-      };
-      const action = updatePost(postUpdated);
-      console.log('trc', history);
-      dispatch(action);
-      console.log('sausafhsafkhaskjfhkjsha');
-      console.log('sau', history);
-      history.push('/post');
-    } else {
+    if (isCreateMode) {
       const newPost = {
         id: Date.now(),
         title: data.title,
@@ -59,10 +48,17 @@ function PostForm() {
       };
       const action = createPost(newPost);
       dispatch(action);
-      history.push('/post');
+    } else {
+      const postUpdated = {
+        id: Number(postId),
+        title: data.title,
+        body: data.body,
+      };
+      const action = updatePost(postUpdated);
+      dispatch(action);
     }
-    
-    // history.push('/post');
+
+    history.push('/post');
   };
 
   return (
